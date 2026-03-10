@@ -116,3 +116,14 @@ Ubicaccion varchar(20),
 Fecha Date,
 primary key (Codigo_A) 
 );
+
+ALTER TABLE Doctor_Contratado ADD CONSTRAINT fk_Doctor_Contratado_Codigo_h FOREIGN KEY (Codigo_h) REFERENCES hospital(Codigo_h);
+ALTER TABLE Doctor_Contratado ADD CONSTRAINT fk_Doctor_Contratado_Codigo_d FOREIGN KEY (Codigo_d) REFERENCES Doctor(Codigo_d);
+ALTER TABLE Doctor_Atiende ADD CONSTRAINT fk_Doctor_Atiende_Codigo_d FOREIGN KEY (Codigo_d) REFERENCES Doctor(Codigo_d);
+ALTER TABLE Doctor_Atiende ADD CONSTRAINT fk_Doctor_Atiende_DNI FOREIGN KEY (DNI) REFERENCES Personas(DNI);
+ALTER TABLE Clientes ADD CONSTRAINT fk_Clientes_DNI FOREIGN KEY (DNI) REFERENCES Personas(DNI);
+ALTER TABLE Cliente_Usa_Automovil ADD CONSTRAINT fk_Cliente_Usa_Automovil_DNI FOREIGN KEY (DNI) REFERENCES Clientes(DNI);
+ALTER TABLE No_Clientes ADD CONSTRAINT fk_No_Clientes_DNI FOREIGN KEY (DNI) REFERENCES Personas(DNI);
+ALTER TABLE implicados_accidentes ADD CONSTRAINT fk_implicados_accidentes_Matricula FOREIGN KEY (Matricula) REFERENCES Personas(Matricula);
+ALTER TABLE implicados_accidentes ADD CONSTRAINT fk_implicados_accidentes_DNI FOREIGN KEY (DNI) REFERENCES Personas(DNI);
+ALTER TABLE implicados_accidentes ADD CONSTRAINT fk_implicados_accidentes_Codigo_A FOREIGN KEY (Codigo_A) REFERENCES Accidentes(Codigo_A);
