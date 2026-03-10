@@ -116,3 +116,8 @@ Ubicaccion varchar(20),
 Fecha Date,
 primary key (Codigo_A) 
 );
+
+alter table mecanico add constraint fk_mecanico_Codigo_Taller foreign key (Codigo_Taller) references taller(Codigo_Taller) on update cascade on delete set null;
+alter table mecanico_repara add constraint fk_mecanico_repara_Codigo_M foreign key (Codigo_M) references mecanico(Codigo_M) on update cascade on delete set null;
+alter table mecanico_repara add constraint fk_mecanico_repara_Codigo_Taller foreign key (Codigo_Taller) references mecanico(Codigo_Taller) on update cascade on delete set null;
+alter table coches add constraint fk_coches_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade on delete set null;
