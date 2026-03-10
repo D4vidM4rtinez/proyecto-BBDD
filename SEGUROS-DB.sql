@@ -121,3 +121,7 @@ alter table mecanico add constraint fk_mecanico_Codigo_Taller foreign key (Codig
 alter table mecanico_repara add constraint fk_mecanico_repara_Codigo_M foreign key (Codigo_M) references mecanico(Codigo_M) on update cascade on delete set null;
 alter table mecanico_repara add constraint fk_mecanico_repara_Codigo_Taller foreign key (Codigo_Taller) references mecanico(Codigo_Taller) on update cascade on delete set null;
 alter table coches add constraint fk_coches_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade on delete set null;
+alter table autobuses add constraint fk_autobuses_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade on delete set null;
+alter table camiones add constraint fk_camiones_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade on delete set null;
+alter table motocicletas add constraint fk_motocicletas_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade on delete set null;
+alter table cliente_usa_automovil add constraint fk_cliente_usa_automovil_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade on delete set null;
