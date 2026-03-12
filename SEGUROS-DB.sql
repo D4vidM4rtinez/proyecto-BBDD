@@ -116,9 +116,10 @@ Ubicacion varchar(20),
 Fecha Date,
 primary key (Codigo_A) 
 );
-# falta añadir on delete set null y on update cascade
+# falta añadir on delete set null donde se pueda
 alter table mecanico add constraint fk_mecanico_Codigo_Taller foreign key (Codigo_Taller) references taller(Codigo_Taller) on update cascade;
-alter table mecanico_repara add constraint fk_mecanico_repara foreign key (Codigo_M,Codigo_Taller) references mecanico(Codigo_M,Codigo_Taller) on update cascade;
+alter table mecanico_repara add constraint fk_mecanico_repara_tm foreign key (Codigo_M,Codigo_Taller) references mecanico(Codigo_M,Codigo_Taller) on update cascade;
+alter table mecanico_repara add constraint fk_mecanico_repara_matricula foreign key (Matricula) references automovil(Matricula) on update cascade;
 alter table coches add constraint fk_coches_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade;
 alter table autobuses add constraint fk_autobuses_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade;
 alter table camiones add constraint fk_camiones_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade;
@@ -128,14 +129,15 @@ ALTER TABLE doctor_contratado ADD CONSTRAINT fk_doctor_contratado_codigo_h FOREI
 ALTER TABLE doctor_contratado ADD CONSTRAINT fk_doctor_contratado_codigo_d FOREIGN KEY (Codigo_d) REFERENCES doctor(Codigo_d) on update cascade;
 ALTER TABLE doctor_atiende ADD CONSTRAINT fk_doctor_atiende_codigo_d FOREIGN KEY (Codigo_d) REFERENCES doctor(Codigo_d) on update cascade;
 ALTER TABLE doctor_atiende ADD CONSTRAINT fk_doctor_atiende_DNI FOREIGN KEY (DNI) REFERENCES personas(DNI) on update cascade;
-ALTER TABLE clientes ADD CONSTRAINT fk_Clientes_DNI FOREIGN KEY (DNI) REFERENCES personas(DNI) on update cascade;
+ALTER TABLE clientes ADD CONSTRAINT fk_lientes_DNI FOREIGN KEY (DNI) REFERENCES personas(DNI) on update cascade;
 ALTER TABLE cliente_usa_automovil ADD CONSTRAINT fk_cliente_usa_automovil_DNI FOREIGN KEY (DNI) REFERENCES clientes(DNI) on update cascade;
-ALTER TABLE no_clientes ADD CONSTRAINT fk_No_Clientes_DNI FOREIGN KEY (DNI) REFERENCES personas(DNI) ;
+ALTER TABLE no_clientes ADD CONSTRAINT fk_No_clientes_DNI FOREIGN KEY (DNI) REFERENCES personas(DNI) on update cascade;
 ALTER TABLE implicados_accidentes ADD CONSTRAINT fk_implicados_accidentes_matricula FOREIGN KEY (Matricula) REFERENCES automovil(Matricula) on update cascade;
 ALTER TABLE implicados_accidentes ADD CONSTRAINT fk_implicados_accidentes_DNI FOREIGN KEY (DNI) REFERENCES personas(DNI) on update cascade;
 ALTER TABLE implicados_accidentes ADD CONSTRAINT fk_implicados_accidentes_codigo_A FOREIGN KEY (Codigo_A) REFERENCES accidentes(Codigo_A) on update cascade;
 
-/*INSERT INTO mecanico(Codigo_M, Codigo_Taller) values (54682, 25548);
+/*
+INSERT INTO mecanico(Codigo_M, Codigo_Taller) values (54682, 25548);
 INSERT INTO mecanico(Codigo_M, Codigo_Taller) values (94625, 69891);
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("8989BLP", "Diesel", "Mercedes", 1, "54872145F");
 */
