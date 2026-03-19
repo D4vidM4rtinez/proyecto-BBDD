@@ -189,7 +189,7 @@ insert into no_clientes values ("54875236D");
 insert into no_clientes values ("58424697A");
 
 # INSERTS DE TERCER NIVEL
-insert into coches(Matricula, N_Puertas) values ("4689YUL", 5);
+insert into coches (Matricula, N_Puertas) values ("4689YUL", 5);
 insert into camiones (Matricula, Peso_Carga) values ("9070KLP",25);
 insert into autobuses (Matricula, Aforo) values ("8989BLP", 50);
 insert into autobuses (Matricula, Aforo) values ("8954JIP", 65); 
@@ -218,6 +218,6 @@ select * from motocicletas;
 select * from personas join clientes on personas.DNI = clientes.DNI join cliente_usa_automovil on clientes.DNI = cliente_usa_automovil.DNI where Nombre like "%Pie%";
 
 
-update clientes set DNI = "66666666L" where DNI ="97588545P";
+update personas set DNI = "66666666L" where DNI ="97588545P";
 
 # falta añadir on delete set null y on update cascade
