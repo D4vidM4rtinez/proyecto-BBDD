@@ -180,6 +180,7 @@ INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values 
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("8954JIP", "Diesel", "Teslas", TRUE, "54872145F");
 
 insert into doctor_atiende(Codigo_D, DNI, Informe_Medico, Fecha_Visita) values (12345, "97588545P", "piernas rotas por 10 lados", '2010-10-10');
+INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("6969OSI", "Diesel","Mercedes",True, "47735239X");
 
 insert into clientes (DNI, Puntos_Carnet) values ("47735239X", 10);
 insert into clientes (DNI, Puntos_Carnet) values ("54872145F", 15);
@@ -191,6 +192,7 @@ insert into no_clientes values ("58424697A");
 # INSERTS DE TERCER NIVEL
 insert into coches (Matricula, N_Puertas) values ("4689YUL", 5);
 insert into camiones (Matricula, Peso_Carga) values ("9070KLP",25);
+insert into camiones (Matricula, Peso_Carga) values ("6969OSI", 25);
 insert into autobuses (Matricula, Aforo) values ("8989BLP", 50);
 insert into autobuses (Matricula, Aforo) values ("8954JIP", 65); 
 insert into motocicletas (Matricula, CV) values ("6666WWR", 60);
@@ -200,6 +202,7 @@ insert into mecanico_repara (Matricula, Codigo_M, Codigo_Taller, Informe_Mecanic
 insert into cliente_usa_automovil (Matricula, DNI, Tipo_Seguro) values ("8989BLP", "47735239X", "a terceros");
 insert into cliente_usa_automovil (Matricula, DNI, Tipo_Seguro) values ("4689YUL", "54872145F", "todo riesgo");
 insert into cliente_usa_automovil (Matricula, DNI, Tipo_Seguro) values ("6666WWR", "97588545P", "a terceros");
+insert into cliente_usa_automovil (Matricula, DNI, Tipo_Seguro) values ("6969OSI", "47735239X", "todo riesgo");
 
 insert into doctor_contratado (Codigo_D, Codigo_H, Salario_D, Jornada_D) values (12345, 1002, 2500, 40);
 insert into doctor_contratado (Codigo_D, Codigo_H, Salario_D, Jornada_D) values (15438, 1002, 1250, 20);
