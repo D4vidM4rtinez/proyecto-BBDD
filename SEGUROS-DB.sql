@@ -261,8 +261,8 @@ where edad < 40 and Direccion_P like 'C/ T%';
 update personas set DNI = "66666666L" WHERE DNI = "97588545P";
 
 select * from automovil join personas on Pertenece_DNI = DNI;
-# de los automoviles quiero saber la matricula el DNI y nombre de quien pertenece, el DNI y el nombre de quien los usa de los automoviles que sean usados por algun cliente con las edades entre 20 y 50
+# de los automoviles quiero saber la matricula el DNI y nombre de quien pertenece, el DNI y el nombre de quien los usa de los automoviles que sean usados por algun cliente con las edades entre 19 y 50
 select automovil.Matricula, Pertenece_DNI, cliente_usa_automovil.DNI as usuario, 
 (SELECT personas.Nombre FROM personas WHERE personas.DNI = cliente_usa_automovil.DNI) as nombre_usuario
 from automovil join cliente_usa_automovil on automovil.Matricula = cliente_usa_automovil.Matricula 
-where DNI in (select DNI from personas where Edad between 19 and 70);
+where DNI in (select DNI from personas where Edad between 19 and 50);
