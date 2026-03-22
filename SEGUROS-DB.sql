@@ -123,6 +123,8 @@ alter table mecanico add constraint fk_mecanico_Codigo_Taller foreign key (Codig
 alter table mecanico_repara add constraint fk_mecanico_repara_tm foreign key (Codigo_M,Codigo_Taller) references mecanico(Codigo_M,Codigo_Taller) on update cascade;
 alter table mecanico_repara add constraint fk_mecanico_repara_matricula foreign key (Matricula) references automovil(Matricula) on update cascade;
 
+alter table automovil add constraint fk_automovil_DNI foreign key (Pertenece_DNI) references personas(DNI) on update cascade;
+
 alter table coches add constraint fk_coches_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade;
 alter table autobuses add constraint fk_autobuses_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade;
 alter table camiones add constraint fk_camiones_Matricula foreign key (Matricula) references automovil(Matricula) on update cascade;
@@ -258,7 +260,9 @@ where edad < 40 and Direccion_P like 'C/ T%';
 # quiero que cambies el DNI de la persona llamada Jean Pierre a 66666666L
 update personas set DNI = "66666666L" WHERE DNI = "97588545P";
 
-# quiero saber la matricula el DNI de quien pertenece, el DNI y el nombre de quien los usa de los automoviles que sean usados por algun cliente con las edades entre 20 y 50
-select automovil.Matricula, cliente_usa_automovil.DNI, (SELECT personas.Nombre FROM personas WHERE personas.DNI = cliente_usa_automovil.DNI)
+select * from automovil join personas on Pertenece_DNI = DNI;
+# de los automoviles quiero saber la matricula el DNI y nombre de quien pertenece, el DNI y el nombre de quien los usa de los automoviles que sean usados por algun cliente con las edades entre 20 y 50
+select automovil.Matricula, Pertenece_DNI, cliente_usa_automovil.DNI as usuario, 
+(SELECT personas.Nombre FROM personas WHERE personas.DNI = cliente_usa_automovil.DNI) as nombre_usuario
 from automovil join cliente_usa_automovil on automovil.Matricula = cliente_usa_automovil.Matricula 
-where DNI in (select DNI from personas where Edad between 20 and 70);
+where DNI in (select DNI from personas where Edad between 19 and 70);
