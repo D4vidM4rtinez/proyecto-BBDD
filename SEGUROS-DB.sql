@@ -164,8 +164,8 @@ insert into personas (DNI, Nombre, Edad, Direccion_P) values ("54872145F", "Elia
 insert into personas (DNI, Nombre, Edad, Direccion_P) values ("97588545P", "Jean Pierre", 36, "C/ Tulipa");
 insert into personas (DNI, Nombre, Edad, Direccion_P) values ("58424697A", "Francisco", 29, "C/ Santa Maria 06");
 
-insert into accidentes (Codigo_A, Ubicacion, Fecha) values (3333, "C/ Josep i Maria", 10/10/2010);
-insert into accidentes (Codigo_A, Ubicacion, Fecha) values (5678, "Av. Barcelona", 20/01/2015);
+insert into accidentes (Codigo_A, Ubicacion, Fecha) values (3333, "C/ Josep i Maria", '2010-10-10');
+insert into accidentes (Codigo_A, Ubicacion, Fecha) values (5678, "Av. Barcelona", '2015-01-20');
 
 
 
@@ -178,8 +178,9 @@ INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values 
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("4689YUL", "Gasolina", "BMW", TRUE, "54872145F");
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("9070KLP", "Gasolina", "Volvo", TRUE, "58424697A");
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("8954JIP", "Diesel", "Teslas", TRUE, "54872145F");
+
+insert into doctor_atiende(Codigo_D, DNI, Informe_Medico, Fecha_Visita) values (12345, "97588545P", "piernas rotas por 10 lados", '2010-10-10');
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("6969OSI", "Diesel","Mercedes",True, "47735239X");
-insert into doctor_atiende(Codigo_D, DNI, Informe_Medico, Fecha_Visita) values (12345, "97588545P", "piernas rotas por 10 lados", 10/10/2010);
 
 insert into clientes (DNI, Puntos_Carnet) values ("47735239X", 10);
 insert into clientes (DNI, Puntos_Carnet) values ("54872145F", 15);
@@ -196,7 +197,7 @@ insert into autobuses (Matricula, Aforo) values ("8989BLP", 50);
 insert into autobuses (Matricula, Aforo) values ("8954JIP", 65); 
 insert into motocicletas (Matricula, CV) values ("6666WWR", 60);
 
-insert into mecanico_repara (Matricula, Codigo_M, Codigo_Taller, Informe_Mecanico, Fecha_Reparacion) values ("6666WWR", 94625, 69891, "siniestro", 15/10/2010);
+insert into mecanico_repara (Matricula, Codigo_M, Codigo_Taller, Informe_Mecanico, Fecha_Reparacion) values ("6666WWR", 94625, 69891, "siniestro", '2010-10-15');
 
 insert into cliente_usa_automovil (Matricula, DNI, Tipo_Seguro) values ("8989BLP", "47735239X", "a terceros");
 insert into cliente_usa_automovil (Matricula, DNI, Tipo_Seguro) values ("4689YUL", "54872145F", "todo riesgo");
@@ -212,17 +213,41 @@ insert into doctor_contratado (Codigo_D, Codigo_H, Salario_D, Jornada_D) values 
 insert into implicados_accidentes(DNI, Matricula, Codigo_A) values ("97588545P", "6666WWR", 3333);
 insert into implicados_accidentes(DNI, Matricula, Codigo_A) values ("54872145F", "8954JIP", 5678);
 
+# inicio de SQL queries
+
 select * from taller;
 select * from mecanico;
 select * from automovil;
 select * from clientes;
 select * from motocicletas;
+
+# quiero ver todo de los talleres y sus mecanicos si alguno de los mecanicos tiene el codigo mas pequeño que 94000
+select taller.Codigo_Taller, Nombre_T, Direccion_T, Codigo_M from taller join mecanico 
+on taller.Codigo_Taller = mecanico.Codigo_Taller 
+where codigo_m < 94000;
+
+# quiero saber el nombre y el codigo de hospital y que doctores pertenecen al hospital pero solo si su jornada es de 20h
+select nombre_h,hospital.codigo_h,jornada_d,doctor.codigo_d from hospital join doctor_contratado on doctor_contratado.Codigo_h = hospital.codigo_h
+join doctor on doctor_contratado.codigo_d = doctor.codigo_d
+where jornada_d = 20;
+
+
+# quiero saber las personas que estan implicadas en un accidente y su codigo de doctor ademas quiero saber 
+# la fecha de cuando lo atienden y el informe medico tambien quiero el nombre el dni la edad y la matricula
+# por ultimo solo quiero las personas mayores de edad
+select personas.dni,nombre,edad,implicados_accidentes.matricula,codigo_d,informe_medico,fecha_visita
+from personas join implicados_accidentes on implicados_accidentes.dni = personas.dni  join doctor_atiende on doctor_atiende.dni = personas.dni
+where edad > 18;
+
+#quiero que muestre la matricula el peso la itv la marca y el tipo de seguro de los camiones que su marca empiecen por M
+select camiones.matricula,peso_carga,itv,marca,tipo_seguro
+from automovil,cliente_usa_automovil,camiones
+where camiones.matricula = automovil.matricula
+and automovil.matricula = cliente_usa_automovil.matricula
+and marca like 'M%';
+
 select * from hospital;
-select * from doctor;
 select * from doctor_contratado;
-select * from doctor_atiende;
-select * from personas;
-select * from implicados_accidentes;
 select * from personas join clientes on personas.DNI = clientes.DNI join cliente_usa_automovil on clientes.DNI = cliente_usa_automovil.DNI where Nombre like "%Pie%";
 
 
