@@ -178,9 +178,9 @@ INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values 
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("4689YUL", "Gasolina", "BMW", TRUE, "54872145F");
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("9070KLP", "Gasolina", "Volvo", TRUE, "58424697A");
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("8954JIP", "Diesel", "Teslas", TRUE, "54872145F");
+INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("6969OSI", "Diesel","Mercedes",True, "47735239X");
 
 insert into doctor_atiende(Codigo_D, DNI, Informe_Medico, Fecha_Visita) values (12345, "97588545P", "piernas rotas por 10 lados", '2010-10-10');
-INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("6969OSI", "Diesel","Mercedes",True, "47735239X");
 
 insert into clientes (DNI, Puntos_Carnet) values ("47735239X", 10);
 insert into clientes (DNI, Puntos_Carnet) values ("54872145F", 15);
@@ -213,13 +213,7 @@ insert into doctor_contratado (Codigo_D, Codigo_H, Salario_D, Jornada_D) values 
 insert into implicados_accidentes(DNI, Matricula, Codigo_A) values ("97588545P", "6666WWR", 3333);
 insert into implicados_accidentes(DNI, Matricula, Codigo_A) values ("54872145F", "8954JIP", 5678);
 
-# inicio de SQL queries
-
-select * from taller;
-select * from mecanico;
-select * from automovil;
-select * from clientes;
-select * from motocicletas;
+# inicio de consultas SQL 
 
 # quiero ver todo de los talleres y sus mecanicos si alguno de los mecanicos tiene el codigo mas pequeño que 94000
 select taller.Codigo_Taller, Nombre_T, Direccion_T, Codigo_M from taller join mecanico 
@@ -246,11 +240,25 @@ where camiones.matricula = automovil.matricula
 and automovil.matricula = cliente_usa_automovil.matricula
 and marca like 'M%';
 
-select * from hospital;
-select * from doctor_contratado;
-select * from personas join clientes on personas.DNI = clientes.DNI join cliente_usa_automovil on clientes.DNI = cliente_usa_automovil.DNI where Nombre like "%Pie%";
+#quiero que muestre la matricula el peso la itv la marca y el tipo de seguro de los camiones que su marca empiecen por M
+select camiones.matricula,peso_carga,itv,marca,tipo_seguro
+from automovil,cliente_usa_automovil,camiones
+where camiones.matricula = automovil.matricula
+and automovil.matricula = cliente_usa_automovil.matricula
+and marca like 'M%';
 
+# muestrame las matriculas de los automoviles que tengan como primera letra la Y o la W y hayan pasado la itv
+select matricula from automovil
+where (matricula like '%Y__' or matricula like '%W__') and itv is true;
 
-update personas set DNI = "66666666L" where DNI ="97588545P";
+# quiero saber todas las personas que su calle empiece por t y su edad este por debajo de 40
+select * from personas 
+where edad < 40 and Direccion_P like 'C/ T%';
 
-# falta añadir on delete set null y on update cascade
+# quiero que cambies el DNI de la persona llamada Jean Pierre a 66666666L
+update personas set DNI = "66666666L" WHERE DNI = "97588545P";
+
+# quiero saber la matricula el DNI de quien pertenece, el DNI y el nombre de quien los usa de los automoviles que sean usados por algun cliente con las edades entre 20 y 50
+select automovil.Matricula, cliente_usa_automovil.DNI, (SELECT personas.Nombre FROM personas WHERE personas.DNI = cliente_usa_automovil.DNI)
+from automovil join cliente_usa_automovil on automovil.Matricula = cliente_usa_automovil.Matricula 
+where DNI in (select DNI from personas where Edad between 20 and 70);
