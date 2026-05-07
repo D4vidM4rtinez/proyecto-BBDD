@@ -56,7 +56,7 @@ create table implicados_accidentes(
 Codigo_A int,
 Matricula char(7),
 DNI char(9),
-primary key (Codigo_A, Matricula, DNI)
+primary key (Matricula, DNI)
 );
 
 create table hospital(
@@ -261,7 +261,6 @@ where edad < 40 and Direccion_P like 'C/ T%';
 # quiero que cambies el DNI de la persona llamada Jean Pierre a 66666666L
 update personas set DNI = "66666666L" WHERE DNI = "97588545P";
 
-select * from automovil join personas on Pertenece_DNI = DNI;
 # de los automoviles quiero saber la matricula el DNI y nombre de quien pertenece, el DNI y el nombre de quien los usa de los automoviles que sean usados por algun cliente con las edades entre 19 y 50
 select automovil.Matricula, Pertenece_DNI, cliente_usa_automovil.DNI as usuario, 
 (SELECT personas.Nombre FROM personas WHERE personas.DNI = cliente_usa_automovil.DNI) as nombre_usuario
