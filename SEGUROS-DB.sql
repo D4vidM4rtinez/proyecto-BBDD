@@ -55,7 +55,8 @@ primary key (Matricula)
 create table implicados_accidentes(
 Codigo_A int,
 Matricula char(7),
-DNI char(9)
+DNI char(9),
+primary key (Codigo_A, Matricula, DNI)
 );
 
 create table hospital(
