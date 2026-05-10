@@ -175,6 +175,9 @@ insert into accidentes (Codigo_A, Ubicacion, Fecha) values (5678, "Av. Barcelona
 # INSERTS DE SEGUNDO NIVEL
 INSERT INTO mecanico(Codigo_M, Codigo_Taller) values (54682, 25548);
 INSERT INTO mecanico(Codigo_M, Codigo_Taller) values (94625, 69891);
+INSERT INTO mecanico(Codigo_M, Codigo_Taller) values (87643, 69891);
+INSERT INTO mecanico(Codigo_M, Codigo_Taller) values (87643, 25548);
+
 
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("8989BLP", "Diesel", "Mercedes", TRUE, "54872145F");
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("6666WWR", "Diesel", "Scorpa", FALSE, "97588545P");
@@ -259,7 +262,7 @@ select * from personas
 where edad < 40 and Direccion_P like 'C/ T%';
 
 # quiero que cambies el DNI de la persona llamada Jean Pierre a 66666666L
-update personas set DNI = "66666666L" WHERE DNI = "97588545P";
+#update personas set DNI = "66666666L" WHERE DNI = "97588545P";
 
 # de los automoviles quiero saber la matricula el DNI y nombre de quien pertenece, el DNI y el nombre de quien los usa de los automoviles que sean usados por algun cliente con las edades entre 19 y 50
 select automovil.Matricula, Pertenece_DNI, cliente_usa_automovil.DNI as usuario, 
