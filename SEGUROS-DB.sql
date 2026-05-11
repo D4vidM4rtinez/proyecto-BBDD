@@ -146,7 +146,28 @@ ALTER TABLE no_clientes ADD CONSTRAINT fk_No_clientes_DNI FOREIGN KEY (DNI) REFE
 ALTER TABLE implicados_accidentes ADD CONSTRAINT fk_implicados_accidentes_matricula FOREIGN KEY (Matricula) REFERENCES automovil(Matricula) on update cascade;
 ALTER TABLE implicados_accidentes ADD CONSTRAINT fk_implicados_accidentes_DNI FOREIGN KEY (DNI) REFERENCES personas(DNI) on update cascade;
 ALTER TABLE implicados_accidentes ADD CONSTRAINT fk_implicados_accidentes_codigo_A FOREIGN KEY (Codigo_A) REFERENCES accidentes(Codigo_A) on update cascade;
+# TRIGGERS, PROCEDURES i FUUNCIONS
+delimiter //
+create function DNICheck(DNI char(9)) returns char (2)
+	begin
+		declare boo char(2);
+        if DNI regexp '^[0-9]{8}[A-Z]$' then
+			set boo = 'Si';
+		else 
+			set boo = 'no';
+        end if;
+        return boo;
+end //
+create Trigger InsertDNI before insert on personas for each row
+	begin
+    declare tmp char(2);
+    set tmp = DNIcheck(new.DNI);
+		if tmp != 'Si' then
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El DNI no corresponde con el formato correcto (8 numeros del 0 al 9 y una letra en mayuscula)';
+		end if;
+	end //
 
+delimiter ;
 # INSERTS DE PRIMER NIVEL
 insert into taller (Codigo_Taller, Nombre_T, Direccion_T) values (25548, 'Taller Paco', 'Av. Barcelona n1');
 insert into taller (Codigo_Taller, Nombre_T, Direccion_T) values (69891, 'Taller Jose', 'C/europa 10c');
