@@ -151,7 +151,7 @@ delimiter //
 create function DNICheck(DNI char(9)) returns char (2)
 	begin
 		declare boo char(2);
-        if DNI regexp '^[0-9]{8}[A-Z]$' then
+        if DNI regexp binary '^[0-9]{8}[A-Z]$' then
 			set boo = 'Si';
 		else 
 			set boo = 'no';
@@ -160,13 +160,20 @@ create function DNICheck(DNI char(9)) returns char (2)
 end //
 create Trigger InsertDNI before insert on personas for each row
 	begin
-    declare tmp char(2);
-    set tmp = DNIcheck(new.DNI);
+		declare tmp char(2);
+		set tmp = DNIcheck(new.DNI);
 		if tmp != 'Si' then
 			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El DNI no corresponde con el formato correcto (8 numeros del 0 al 9 y una letra en mayuscula)';
 		end if;
 	end //
-
+create Trigger updateDNI before update on personas for each row
+	begin
+		declare tmp char(2);
+		set tmp = DNIcheck(new.DNI);
+		if tmp != 'Si' then
+			SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'El DNI no corresponde con el formato correcto (8 numeros del 0 al 9 y una letra en mayuscula)';
+		end if;
+	end //
 delimiter ;
 # INSERTS DE PRIMER NIVEL
 insert into taller (Codigo_Taller, Nombre_T, Direccion_T) values (25548, 'Taller Paco', 'Av. Barcelona n1');
@@ -283,7 +290,7 @@ select * from personas
 where edad < 40 and Direccion_P like 'C/ T%';
 
 # quiero que cambies el DNI de la persona llamada Jean Pierre a 66666666L
-#update personas set DNI = "66666666L" WHERE DNI = "97588545P";
+# update personas set DNI = "66666666L" WHERE DNI = "97588545P";
 
 # de los automoviles quiero saber la matricula el DNI y nombre de quien pertenece, el DNI y el nombre de quien los usa de los automoviles que sean usados por algun cliente con las edades entre 19 y 50
 select automovil.Matricula, Pertenece_DNI, cliente_usa_automovil.DNI as usuario, 
