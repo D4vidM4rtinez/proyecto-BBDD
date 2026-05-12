@@ -206,7 +206,6 @@ INSERT INTO mecanico(Codigo_M, Codigo_Taller) values (94625, 69891);
 INSERT INTO mecanico(Codigo_M, Codigo_Taller) values (87643, 69891);
 INSERT INTO mecanico(Codigo_M, Codigo_Taller) values (87643, 25548);
 
-
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("8989BLP", "Diesel", "Mercedes", TRUE, "54872145F");
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("6666WWR", "Diesel", "Scorpa", FALSE, "97588545P");
 INSERT INTO automovil(Matricula, Combustible, Marca, ITV, Pertenece_DNI) values ("4689YUL", "Gasolina", "BMW", TRUE, "54872145F");
@@ -248,6 +247,26 @@ insert into implicados_accidentes(DNI, Matricula, Codigo_A) values ("97588545P",
 insert into implicados_accidentes(DNI, Matricula, Codigo_A) values ("54872145F", "8954JIP", 5678);
 
 # inicio de consultas SQL 
+
+# todas las tablas
+select * from taller;
+select * from mecanico;
+select * from mecanico repara;
+select * from automovil;
+select * from coches;
+select * from autobuses;
+select * from camiones;
+select * from motocicletas;
+select * from cliente_usa_automovil;
+select * from clientes;
+select * from no_clientes;
+select * from personas;
+select * from implicados_accidentes;
+select * from accidentes;
+select * from doctor_atiende;
+select * from doctor;
+select * from doctor_contratado;
+select * from hospital;
 
 # quiero ver todo de los talleres y sus mecanicos si alguno de los mecanicos tiene el codigo mas pequeño que 94000
 select taller.Codigo_Taller, Nombre_T, Direccion_T, Codigo_M from taller join mecanico 
@@ -292,7 +311,8 @@ where edad < 40 and Direccion_P like 'C/ T%';
 # quiero que cambies el DNI de la persona llamada Jean Pierre a 66666666L
 # update personas set DNI = "66666666L" WHERE DNI = "97588545P";
 
-# de los automoviles quiero saber la matricula el DNI y nombre de quien pertenece, el DNI y el nombre de quien los usa de los automoviles que sean usados por algun cliente con las edades entre 19 y 50
+# de los automoviles quiero saber la matricula el DNI y nombre de quien pertenece, 
+# el DNI y el nombre de quien los usa de los automoviles que sean usados por algun cliente con las edades entre 19 y 50
 select automovil.Matricula, Pertenece_DNI, cliente_usa_automovil.DNI as usuario, 
 (SELECT personas.Nombre FROM personas WHERE personas.DNI = cliente_usa_automovil.DNI) as nombre_usuario
 from automovil join cliente_usa_automovil on automovil.Matricula = cliente_usa_automovil.Matricula 

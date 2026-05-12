@@ -7,13 +7,7 @@ BÀSIC
 
 * ENUNCIAT per MER: Falta especificar algunas cardinalidades mínimas.
 
-* ENUNCIAT per DADES: Hay mas mecanicos de lo que dice REL DADES y Enunciado (cambiar valores codigoM en enunciado, REL DADES ).
-
-* MER: 
-  - Relación subtipos de Automovil (JERARQUÍA): aparece en MER restricción disjunta/intersección no especificada en el enunciado (especificar en enunciado).
-
 * SCRIPT: 
-  - Tabla ImplicadosAccidentes (3o+): falla NO corresponde con REL TEXT ni REL ESQ, no tiene marcado ningún campo como PK (corregir REL ESQ y SCRIPT).
   - Tabla ClienteUsaAutomovil (vinculada a subtipo de JERARQUIA de Personas): falla aparecen datos nuevos no especificados en enunciado datos ni en REL DADES (corregir enunciado y REL DADES).
 
   - Falta mostrar todas las tablas, y comentarios de lo que falta o falla
