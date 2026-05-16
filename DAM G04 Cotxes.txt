@@ -10,7 +10,7 @@ BÀSIC
 * SCRIPT: 
   - Tabla ClienteUsaAutomovil (vinculada a subtipo de JERARQUIA de Personas): falla aparecen datos nuevos no especificados en enunciado datos ni en REL DADES (corregir enunciado y REL DADES).
 
-  - Falta mostrar todas las tablas, y comentarios de lo que falta o falla
+
 
 
 AVANÇAT
